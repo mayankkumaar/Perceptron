@@ -3,6 +3,50 @@
  * Seamless adaptation across ultra-wide monitors, desktops, tablets, and phones.
  */
 
+/* Wide desktop card arrangement: keep the analytical cards packed around the
+   primary visualization instead of leaving an unused center column. */
+@media (min-width: 1121px) {
+  .dashboard-grid {
+    grid-template-areas:
+      "truth neuron metrics"
+      "controls history boundary"
+      "playground history boundary";
+  }
+
+  .col-sidebar-left,
+  .col-centerpiece,
+  .col-analytical-right {
+    display: contents;
+  }
+
+  [aria-labelledby="heading-truth-table"] {
+    grid-area: truth;
+  }
+
+  [aria-labelledby="heading-controls"] {
+    grid-area: controls;
+  }
+
+  #playground {
+    grid-area: playground;
+  }
+
+  .neuron-workspace {
+    grid-area: neuron;
+  }
+
+  [aria-labelledby="heading-metrics"] {
+    grid-area: metrics;
+  }
+
+  [aria-labelledby="heading-boundary"] {
+    grid-area: boundary;
+  }
+
+  [aria-labelledby="heading-history"] {
+    grid-area: history;
+  }
+}
 /* Desktops and Laptops <= 1360px */
 @media (max-width: 1360px) {
   .dashboard-grid {
