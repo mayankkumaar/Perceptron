@@ -1,0 +1,9 @@
+{
+  "name": "perceptron-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node js/tests.js"
+  }
+}

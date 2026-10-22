@@ -1,0 +1,112 @@
+/**
+ * Responsive Styles for Perceptron Lab
+ * Seamless adaptation across ultra-wide monitors, desktops, tablets, and phones.
+ */
+
+/* Desktops and Laptops <= 1360px */
+@media (max-width: 1360px) {
+  .dashboard-grid {
+    grid-template-columns: 320px 1fr 340px;
+    gap: var(--space-4);
+  }
+}
+
+/* Tablets and Medium Screens <= 1120px */
+@media (max-width: 1120px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col-centerpiece {
+    grid-column: span 2;
+    order: -1; /* Keep centerpiece at the top of the workspace */
+  }
+
+  .col-sidebar-left {
+    grid-column: span 1;
+  }
+
+  .col-analytical-right {
+    grid-column: span 1;
+  }
+
+  .theory-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Devices <= 768px */
+@media (max-width: 768px) {
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gate-ribbon-container {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .gate-selector-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gate-btn-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gate-select-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .main-workspace {
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .col-centerpiece {
+    grid-column: span 1;
+    order: 0;
+  }
+
+  .col-sidebar-left {
+    grid-column: span 1;
+  }
+
+  .col-analytical-right {
+    grid-column: span 1;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .footer-refs {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .modal-dialog {
+    max-height: 92vh;
+  }
+}
