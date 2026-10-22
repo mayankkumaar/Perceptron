@@ -50,7 +50,6 @@
         <nav class="header-actions" aria-label="Quick Navigation">
           <a href="#workspace" class="btn-outline btn-sm">Lab Workspace</a>
           <a href="#playground" class="btn-outline btn-sm">Playground</a>
-          <a href="#theory" class="btn-outline btn-sm">Theory & Proofs</a>
           <button id="btn-run-tests" class="btn-secondary btn-sm" title="Run mathematical and algorithmic unit tests">
             <span>⚡ Run Unit Tests</span>
           </button>
@@ -436,138 +435,6 @@
 
       </div>
 
-      <!-- ==========================================
-           BOTTOM SECTION: Comprehensive Educational Guide
-           ========================================== -->
-      <section id="theory" class="secondary-section" aria-labelledby="heading-theory">
-        <div class="lab-card">
-          <div class="lab-card-header">
-            <h2 id="heading-theory" class="lab-card-title" style="font-size: 14px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              Theoretical Foundations & Mathematical Proofs
-            </h2>
-            <span style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-cyan);">CURRICULUM MODULE</span>
-          </div>
-
-          <div class="lab-card-body theory-guide-container">
-            <div class="theory-grid">
-
-              <!-- Module 1: The Artificial Neuron -->
-              <article class="theory-card">
-                <h3>1. The Artificial Neuron</h3>
-                <p>
-                  Proposed by Warren McCulloch and Walter Pitts in 1943, and developed into a learning machine by Frank Rosenblatt in 1957, the <strong>Perceptron</strong> is the fundamental building block of modern neural architectures.
-                </p>
-                <p>
-                  Biological dendrites collect synaptic input signals $x_i$, which are modulated by synaptic transmission efficiencies (weights $w_i$), aggregated in the soma (cell body), and transmitted along the axon if the electrical potential surpasses an excitation threshold.
-                </p>
-                <div class="math-card-box">
-                  <strong>Biological Analogy:</strong><br>
-                  • Inputs $x_i$ ↔ Dendritic signals<br>
-                  • Weights $w_i$ ↔ Synaptic transmission strength<br>
-                  • Bias $b$ ↔ Threshold membrane potential<br>
-                  • Net Sum $z$ ↔ Somatic accumulation<br>
-                  • Output $\hat{y}$ ↔ Axon action potential
-                </div>
-              </article>
-
-              <!-- Module 2: The Forward Pass & Activation -->
-              <article class="theory-card">
-                <h3>2. Forward Pass & Activation</h3>
-                <p>
-                  The perceptron computes a linear combination (dot product) of its inputs and weights, shifted by the scalar bias $b$:
-                </p>
-                <div class="math-card-box">
-                  <strong>Net Weighted Sum (z):</strong><br>
-                  z = (w₁ · x₁) + (w₂ · x₂) + b = <strong>wᵀx + b</strong><br><br>
-                  <strong>Heaviside Step Function:</strong><br>
-                  ŷ = Θ(z) = <strong>1 if z ≥ 0</strong>, else <strong>0</strong>
-                </div>
-                <p>
-                  Because the activation threshold occurs sharply at $z = 0$, the decision boundary partitioning the space into predicted class 0 and class 1 is the linear hyperplane $w_1 x_1 + w_2 x_2 + b = 0$.
-                </p>
-              </article>
-
-              <!-- Module 3: The Perceptron Learning Rule -->
-              <article class="theory-card">
-                <h3>3. The Rosenblatt Learning Rule</h3>
-                <p>
-                  Unlike continuous neural networks that utilize backpropagation and differential calculus, the original perceptron employs a direct, error-driven feedback rule:
-                </p>
-                <div class="math-card-box">
-                  <strong>Error Calculation:</strong><br>
-                  e = y - ŷ  ∈ {-1, 0, +1}<br><br>
-                  <strong>Parameter Updates (Learning Rate η):</strong><br>
-                  Δwᵢ = η · e · xᵢ<br>
-                  Δb  = η · e<br><br>
-                  wᵢ⁽ᵗ⁺¹⁾ = wᵢ⁽ᵗ⁾ + Δwᵢ<br>
-                  b⁽ᵗ⁺¹⁾  = b⁽ᵗ⁾  + Δb
-                </div>
-                <p>
-                  When a prediction is correct ($e = 0$), no update occurs. When $e = +1$ (false negative), the weight vector rotates toward $\mathbf{x}$. When $e = -1$ (false positive), the weight vector rotates away from $\mathbf{x}$.
-                </p>
-              </article>
-
-              <!-- Module 4: Geometric Interpretation -->
-              <article class="theory-card">
-                <h3>4. Geometric Interpretation</h3>
-                <p>
-                  In two dimensions, the decision boundary is a straight line:
-                </p>
-                <div class="math-card-box">
-                  w₁x₁ + w₂x₂ + b = 0  ⇒  <strong>x₂ = -(w₁/w₂)x₁ - (b/w₂)</strong><br><br>
-                  • Slope: <strong>m = -(w₁ / w₂)</strong><br>
-                  • Intercept: <strong>c = -(b / w₂)</strong><br>
-                  • Normal Vector: <strong>w = [w₁, w₂]ᵀ</strong> (points into Class 1)
-                </div>
-                <p>
-                  The vector $\mathbf{w}$ is perpendicular to the boundary line. Adjusting $w_1$ and $w_2$ changes the line's orientation, while adjusting the bias $b$ translates the line across the plane without altering its angle.
-                </p>
-              </article>
-
-              <!-- Module 5: Novikoff's Convergence Theorem -->
-              <article class="theory-card">
-                <h3>5. Convergence Theorem (Novikoff, 1962)</h3>
-                <p>
-                  Albert Novikoff proved that if a dataset is <strong>linearly separable</strong> by a margin $\gamma > 0$, the perceptron learning rule is mathematically guaranteed to find a separating hyperplane in a finite number of updates:
-                </p>
-                <div class="math-card-box">
-                  <strong>Maximum Updates Bound:</strong><br>
-                  k ≤ (R / γ)²<br><br>
-                  • R = max ||xᵢ|| (maximum radius of training points)<br>
-                  • γ = geometric separation margin of the optimal hyperplane
-                </div>
-                <p>
-                  This guarantees that AND, OR, and NAND gates will always converge to 100% accuracy from any arbitrary starting weights.
-                </p>
-              </article>
-
-              <!-- Module 6: The XOR Limitation & AI Winter -->
-              <article class="theory-card">
-                <h3>6. The XOR Problem (Minsky & Papert, 1969)</h3>
-                <p>
-                  In their landmark 1969 book <em>Perceptrons</em>, Marvin Minsky and Seymour Papert proved that a single-layer perceptron cannot compute the <strong>Exclusive-OR (XOR)</strong> function.
-                </p>
-                <div class="math-card-box">
-                  <strong>Mathematical Proof of Contradiction:</strong><br>
-                  1. (0,0) → 0 : b &lt; 0<br>
-                  2. (0,1) → 1 : w₂ + b ≥ 0<br>
-                  3. (1,0) → 1 : w₁ + b ≥ 0<br>
-                  4. (1,1) → 0 : w₁ + w₂ + b &lt; 0<br><br>
-                  (2) + (3) ⇒ w₁ + w₂ ≥ -2b<br>
-                  From (4)  ⇒ w₁ + w₂ &lt; -b<br>
-                  ⇒ -2b &lt; -b ⇒ <strong>b &gt; 0</strong> (Contradicts (1) where <strong>b &lt; 0</strong>!)
-                </div>
-                <p>
-                  No single linear boundary can separate diagonal points $(0,1), (1,0)$ from $(0,0), (1,1)$. Solving XOR requires a <strong>Multi-Layer Perceptron (MLP)</strong> with hidden neurons.
-                </p>
-              </article>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
 
     <!-- App Footer -->
@@ -577,9 +444,6 @@
           <strong>Perceptron Lab</strong> — Interactive Threshold Logic Unit Simulator. Zero external ML libraries or frameworks.
         </div>
         <div class="footer-refs">
-          <span>Rosenblatt (1957)</span>
-          <span>Novikoff (1962)</span>
-          <span>Minsky & Papert (1969)</span>
           <span>GitHub Pages Compatible</span>
         </div>
       </div>

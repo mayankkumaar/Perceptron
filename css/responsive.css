@@ -30,9 +30,6 @@
     grid-column: span 1;
   }
 
-  .theory-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Mobile Devices <= 768px */

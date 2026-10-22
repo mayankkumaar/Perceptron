@@ -283,13 +283,6 @@ body {
   padding: var(--space-4);
 }
 
-/* Bottom Secondary Sections: Theory & Guide */
-.secondary-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
 /* App Footer */
 .app-footer {
   background-color: var(--bg-surface);
