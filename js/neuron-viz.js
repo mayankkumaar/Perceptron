@@ -116,7 +116,7 @@ export class NeuronVisualizer {
       <g id="weights-group">
         <!-- Weight 1 Badge -->
         <g id="badge-w1" transform="translate(260, 105)">
-          <rect x="-42" y="-14" width="84" height="28" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+          <rect x="-50" y="-14" width="100" height="28" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
           <text id="text-w1" x="0" y="5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#e2e8f0">w₁ = 0.00</text>
           <text id="delta-w1" x="0" y="-18" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#38bdf8" opacity="0"></text>
           <text id="prod-w1" x="0" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8">x₁·w₁ = 0.00</text>
@@ -124,7 +124,7 @@ export class NeuronVisualizer {
 
         <!-- Weight 2 Badge -->
         <g id="badge-w2" transform="translate(260, 335)">
-          <rect x="-42" y="-14" width="84" height="28" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+          <rect x="-50" y="-14" width="100" height="28" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
           <text id="text-w2" x="0" y="5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#e2e8f0">w₂ = 0.00</text>
           <text id="delta-w2" x="0" y="-18" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#38bdf8" opacity="0"></text>
           <text id="prod-w2" x="0" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8">x₂·w₂ = 0.00</text>
@@ -132,7 +132,7 @@ export class NeuronVisualizer {
 
         <!-- Bias Badge -->
         <g id="badge-b" transform="translate(370, 395)">
-          <rect x="-38" y="-13" width="76" height="26" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" />
+          <rect x="-46" y="-13" width="92" height="26" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" />
           <text id="text-b" x="0" y="4.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#fde68a">b = 0.00</text>
           <text id="delta-b" x="0" y="-17" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#f59e0b" opacity="0"></text>
         </g>
@@ -200,13 +200,13 @@ export class NeuronVisualizer {
 
         <!-- Adjacent Target Badge -->
         <g id="badge-target" transform="translate(0, 70)">
-          <rect x="-44" y="-12" width="88" height="24" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1" />
+          <rect x="-60" y="-12" width="120" height="24" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1" />
           <text id="text-target" x="0" y="4" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#94a3b8">Target: y = 0</text>
         </g>
 
         <!-- Adjacent Error Badge -->
         <g id="badge-error" transform="translate(0, 102)">
-          <rect id="rect-error" x="-44" y="-12" width="88" height="24" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1" />
+          <rect id="rect-error" x="-60" y="-12" width="120" height="24" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1" />
           <text id="text-error" x="0" y="4" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#64748b">Error: e = 0</text>
         </g>
       </g>
@@ -251,6 +251,19 @@ export class NeuronVisualizer {
     this.pathLenW2 = this.el.pathW2.getTotalLength();
     this.pathLenB = this.el.pathB.getTotalLength();
     this.pathLenOut = this.el.pathOut.getTotalLength();
+  }
+
+  setSvgText(element, value, maxWidth) {
+    element.textContent = value;
+    element.removeAttribute('textLength');
+    element.removeAttribute('lengthAdjust');
+
+    if (typeof element.getComputedTextLength !== 'function') return;
+    const measuredWidth = element.getComputedTextLength();
+    if (measuredWidth > maxWidth) {
+      element.setAttribute('textLength', String(maxWidth));
+      element.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+    }
   }
 
   /**
@@ -309,13 +322,13 @@ export class NeuronVisualizer {
     };
 
     // Update weight labels
-    this.el.textW1.textContent = `w₁ = ${Perceptron.formatNumber(w1)}`;
-    this.el.textW2.textContent = `w₂ = ${Perceptron.formatNumber(w2)}`;
-    this.el.textB.textContent = `b = ${Perceptron.formatNumber(b)}`;
+    this.setSvgText(this.el.textW1, `w₁ = ${Perceptron.formatNumber(w1)}`, 94);
+    this.setSvgText(this.el.textW2, `w₂ = ${Perceptron.formatNumber(w2)}`, 94);
+    this.setSvgText(this.el.textB, `b = ${Perceptron.formatNumber(b)}`, 86);
 
     // Update product annotations
-    this.el.prodW1.textContent = `x₁·w₁ = ${Perceptron.formatNumber(w1x1)}`;
-    this.el.prodW2.textContent = `x₂·w₂ = ${Perceptron.formatNumber(w2x2)}`;
+    this.setSvgText(this.el.prodW1, `x₁·w₁ = ${Perceptron.formatNumber(w1x1)}`, 94);
+    this.setSvgText(this.el.prodW2, `x₂·w₂ = ${Perceptron.formatNumber(w2x2)}`, 94);
 
     // Update input node text
     this.el.valX1.textContent = `x₁ = ${x1}`;
@@ -330,11 +343,11 @@ export class NeuronVisualizer {
 
     // Update prediction and target
     this.el.valYHat.textContent = `ŷ = ${yHat}`;
-    this.el.textTarget.textContent = `Target: y = ${target}`;
+    this.setSvgText(this.el.textTarget, `Target: y = ${target}`, 112);
 
     const isMatch = (yHat === target);
     const error = target - yHat;
-    this.el.textError.textContent = `Error: e = ${error > 0 ? '+' : ''}${error}`;
+    this.setSvgText(this.el.textError, `Error: e = ${error > 0 ? '+' : ''}${error}`, 112);
 
     if (state.hasEvaluated) {
       if (isMatch) {
@@ -390,19 +403,19 @@ export class NeuronVisualizer {
 
     // Reset initial visuals with old parameters
     this.resetVisuals();
-    this.el.textW1.textContent = `w₁ = ${Perceptron.formatNumber(oldParams.w1)}`;
-    this.el.textW2.textContent = `w₂ = ${Perceptron.formatNumber(oldParams.w2)}`;
-    this.el.textB.textContent = `b = ${Perceptron.formatNumber(oldParams.b)}`;
+    this.setSvgText(this.el.textW1, `w₁ = ${Perceptron.formatNumber(oldParams.w1)}`, 94);
+    this.setSvgText(this.el.textW2, `w₂ = ${Perceptron.formatNumber(oldParams.w2)}`, 94);
+    this.setSvgText(this.el.textB, `b = ${Perceptron.formatNumber(oldParams.b)}`, 86);
 
     this.el.valX1.textContent = `x₁ = ${inputs.x1}`;
     this.el.valX2.textContent = `x₂ = ${inputs.x2}`;
     this.el.circleX1.setAttribute('fill', inputs.x1 === 1 ? 'url(#activeGrad)' : 'url(#nodeGrad)');
     this.el.circleX2.setAttribute('fill', inputs.x2 === 1 ? 'url(#activeGrad)' : 'url(#nodeGrad)');
 
-    this.el.prodW1.textContent = `x₁·w₁ = ${Perceptron.formatNumber(weightedProducts.w1x1)}`;
-    this.el.prodW2.textContent = `x₂·w₂ = ${Perceptron.formatNumber(weightedProducts.w2x2)}`;
+    this.setSvgText(this.el.prodW1, `x₁·w₁ = ${Perceptron.formatNumber(weightedProducts.w1x1)}`, 94);
+    this.setSvgText(this.el.prodW2, `x₂·w₂ = ${Perceptron.formatNumber(weightedProducts.w2x2)}`, 94);
 
-    this.el.textTarget.textContent = `Target: y = ${target}`;
+    this.setSvgText(this.el.textTarget, `Target: y = ${target}`, 112);
     this.el.valYHat.textContent = `ŷ = ?`;
     this.el.evalStatus.textContent = 'EVALUATING';
     this.el.evalStatus.setAttribute('fill', '#38bdf8');
@@ -446,7 +459,7 @@ export class NeuronVisualizer {
       this.animateOutputSignal(phase2Duration, () => {
         // Phase 3: Compare with target & parameter update
         this.el.valYHat.textContent = `ŷ = ${prediction}`;
-        this.el.textError.textContent = `Error: e = ${error > 0 ? '+' : ''}${error}`;
+        this.setSvgText(this.el.textError, `Error: e = ${error > 0 ? '+' : ''}${error}`, 112);
 
         if (error === 0) {
           // Correct prediction
@@ -472,9 +485,9 @@ export class NeuronVisualizer {
         }
 
         // Finalize weights and equation bar
-        this.el.textW1.textContent = `w₁ = ${Perceptron.formatNumber(newParams.w1)}`;
-        this.el.textW2.textContent = `w₂ = ${Perceptron.formatNumber(newParams.w2)}`;
-        this.el.textB.textContent = `b = ${Perceptron.formatNumber(newParams.b)}`;
+        this.setSvgText(this.el.textW1, `w₁ = ${Perceptron.formatNumber(newParams.w1)}`, 94);
+        this.setSvgText(this.el.textW2, `w₂ = ${Perceptron.formatNumber(newParams.w2)}`, 94);
+        this.setSvgText(this.el.textB, `b = ${Perceptron.formatNumber(newParams.b)}`, 86);
 
         this.renderEquationBar({
           x1: inputs.x1, x2: inputs.x2, target,
@@ -506,17 +519,17 @@ export class NeuronVisualizer {
     this.el.circleX1.setAttribute('fill', inputs.x1 === 1 ? 'url(#activeGrad)' : 'url(#nodeGrad)');
     this.el.circleX2.setAttribute('fill', inputs.x2 === 1 ? 'url(#activeGrad)' : 'url(#nodeGrad)');
 
-    this.el.prodW1.textContent = `x₁·w₁ = ${Perceptron.formatNumber(weightedProducts.w1x1)}`;
-    this.el.prodW2.textContent = `x₂·w₂ = ${Perceptron.formatNumber(weightedProducts.w2x2)}`;
+    this.setSvgText(this.el.prodW1, `x₁·w₁ = ${Perceptron.formatNumber(weightedProducts.w1x1)}`, 94);
+    this.setSvgText(this.el.prodW2, `x₂·w₂ = ${Perceptron.formatNumber(weightedProducts.w2x2)}`, 94);
 
-    this.el.textW1.textContent = `w₁ = ${Perceptron.formatNumber(newParams.w1)}`;
-    this.el.textW2.textContent = `w₂ = ${Perceptron.formatNumber(newParams.w2)}`;
-    this.el.textB.textContent = `b = ${Perceptron.formatNumber(newParams.b)}`;
+    this.setSvgText(this.el.textW1, `w₁ = ${Perceptron.formatNumber(newParams.w1)}`, 94);
+    this.setSvgText(this.el.textW2, `w₂ = ${Perceptron.formatNumber(newParams.w2)}`, 94);
+    this.setSvgText(this.el.textB, `b = ${Perceptron.formatNumber(newParams.b)}`, 86);
 
     this.el.textZVal.textContent = `z = ${Perceptron.formatNumber(z)}`;
     this.el.valYHat.textContent = `ŷ = ${prediction}`;
-    this.el.textTarget.textContent = `Target: y = ${target}`;
-    this.el.textError.textContent = `Error: e = ${error > 0 ? '+' : ''}${error}`;
+    this.setSvgText(this.el.textTarget, `Target: y = ${target}`, 112);
+    this.setSvgText(this.el.textError, `Error: e = ${error > 0 ? '+' : ''}${error}`, 112);
 
     if (error === 0) {
       this.el.circleOut.setAttribute('stroke', '#10b981');
@@ -626,17 +639,17 @@ export class NeuronVisualizer {
    */
   showWeightDeltas(delta, newParams) {
     if (delta.w1 !== 0) {
-      this.el.deltaW1.textContent = `Δw₁ = ${delta.w1 > 0 ? '+' : ''}${delta.w1.toFixed(2)}`;
+      this.setSvgText(this.el.deltaW1, `Δw₁ = ${delta.w1 > 0 ? '+' : ''}${delta.w1.toFixed(2)}`, 108);
       this.el.deltaW1.setAttribute('fill', delta.w1 > 0 ? '#10b981' : '#f43f5e');
       this.el.deltaW1.setAttribute('opacity', '1');
     }
     if (delta.w2 !== 0) {
-      this.el.deltaW2.textContent = `Δw₂ = ${delta.w2 > 0 ? '+' : ''}${delta.w2.toFixed(2)}`;
+      this.setSvgText(this.el.deltaW2, `Δw₂ = ${delta.w2 > 0 ? '+' : ''}${delta.w2.toFixed(2)}`, 108);
       this.el.deltaW2.setAttribute('fill', delta.w2 > 0 ? '#10b981' : '#f43f5e');
       this.el.deltaW2.setAttribute('opacity', '1');
     }
     if (delta.b !== 0) {
-      this.el.deltaB.textContent = `Δb = ${delta.b > 0 ? '+' : ''}${delta.b.toFixed(2)}`;
+      this.setSvgText(this.el.deltaB, `Δb = ${delta.b > 0 ? '+' : ''}${delta.b.toFixed(2)}`, 90);
       this.el.deltaB.setAttribute('fill', delta.b > 0 ? '#10b981' : '#f43f5e');
       this.el.deltaB.setAttribute('opacity', '1');
     }
