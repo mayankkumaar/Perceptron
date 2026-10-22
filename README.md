@@ -328,6 +328,16 @@ A GitHub Actions workflow in `.github/workflows/deploy-pages.yml` deploys the ro
    `https://mayankkumaar.github.io/Perceptron/`
 
 The `.nojekyll` marker keeps GitHub Pages from applying Jekyll processing to the static asset tree.
+### Firebase Hosting
+
+The repository is also configured for the Firebase project `binaryperceptron` (display name: **Perceptron**). Firebase Hosting publishes the static frontend from the repository root; the Node backend is not deployed there.
+
+```bash
+firebase deploy --only hosting --project binaryperceptron
+```
+
+Live site: `https://binaryperceptron.web.app`
+
 
 ---
 ## 9. Verification & Unit Testing
