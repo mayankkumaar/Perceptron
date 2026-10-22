@@ -317,30 +317,19 @@ The API validates gate IDs, binary inputs, numeric parameters, request size, and
 ---
 ## 8. Deployment via GitHub Pages
 
-Because Perceptron Lab is built with standard web technologies and relative paths, it deploys effortlessly to GitHub Pages:
+The repository is ready for GitHub Pages. The site is static and starts at the root `index.html`; the Node backend is for local/API use only because GitHub Pages does not run server processes.
 
-1. Initialize git and commit the codebase:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Perceptron Lab"
-   ```
-2. Push to your GitHub repository:
-   ```bash
-   git remote add origin https://github.com/<your-username>/<your-repo>.git
-   git branch -M main
-   git push -u origin main
-   ```
-3. Enable GitHub Pages:
-   - Navigate to **Settings > Pages** in your GitHub repository.
-   - Under **Source**, select `Deploy from a branch`.
-   - Under **Branch**, select `main` and folder `/ (root)`.
-   - Click **Save**.
-4. Your application will be live at:
-   `https://<your-username>.github.io/<your-repo>/`
+A GitHub Actions workflow in `.github/workflows/deploy-pages.yml` deploys the root directory whenever `main` changes.
+
+1. Open **Settings > Pages** in the GitHub repository.
+2. Set **Source** to **GitHub Actions**.
+3. Push to `main` or run the **Deploy Perceptron Lab to GitHub Pages** workflow manually.
+4. After the workflow completes, open:
+   `https://mayankkumaar.github.io/Perceptron/`
+
+The `.nojekyll` marker keeps GitHub Pages from applying Jekyll processing to the static asset tree.
 
 ---
-
 ## 9. Verification & Unit Testing
 
 The repository includes a standalone test suite in `js/tests.js` verifying mathematical invariants:
