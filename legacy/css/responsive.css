@@ -1,0 +1,153 @@
+/**
+ * Responsive Styles for Perceptron Lab
+ * Seamless adaptation across ultra-wide monitors, desktops, tablets, and phones.
+ */
+
+/* Wide desktop card arrangement: keep the analytical cards packed around the
+   primary visualization instead of leaving an unused center column. */
+@media (min-width: 1121px) {
+  .dashboard-grid {
+    grid-template-areas:
+      "truth neuron metrics"
+      "controls history boundary"
+      "playground history boundary";
+  }
+
+  .col-sidebar-left,
+  .col-centerpiece,
+  .col-analytical-right {
+    display: contents;
+  }
+
+  [aria-labelledby="heading-truth-table"] {
+    grid-area: truth;
+  }
+
+  [aria-labelledby="heading-controls"] {
+    grid-area: controls;
+  }
+
+  #playground {
+    grid-area: playground;
+  }
+
+  .neuron-workspace {
+    grid-area: neuron;
+  }
+
+  [aria-labelledby="heading-metrics"] {
+    grid-area: metrics;
+  }
+
+  [aria-labelledby="heading-boundary"] {
+    grid-area: boundary;
+  }
+
+  [aria-labelledby="heading-history"] {
+    grid-area: history;
+  }
+}
+/* Desktops and Laptops <= 1360px */
+@media (max-width: 1360px) {
+  .dashboard-grid {
+    grid-template-columns: 320px 1fr 340px;
+    gap: var(--space-4);
+  }
+}
+
+/* Tablets and Medium Screens <= 1120px */
+@media (max-width: 1120px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col-centerpiece {
+    grid-column: span 2;
+    order: -1; /* Keep centerpiece at the top of the workspace */
+  }
+
+  .col-sidebar-left {
+    grid-column: span 1;
+  }
+
+  .col-analytical-right {
+    grid-column: span 1;
+  }
+
+}
+
+/* Mobile Devices <= 768px */
+@media (max-width: 768px) {
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gate-ribbon-container {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .gate-selector-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gate-btn-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gate-select-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .main-workspace {
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .col-centerpiece {
+    grid-column: span 1;
+    order: 0;
+  }
+
+  .col-sidebar-left {
+    grid-column: span 1;
+  }
+
+  .col-analytical-right {
+    grid-column: span 1;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .footer-refs {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .modal-dialog {
+    max-height: 92vh;
+  }
+}
